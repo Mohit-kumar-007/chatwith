@@ -31,8 +31,12 @@ export const signup = async (req,res)=> {
         password: hashedPassword,
    })
    if(newUser){
-    genrateToken(newUser._id,res)
-    await newUser.save();
+    // genrateToken(newUser._id,res)
+    // await newUser.save();
+
+    //a diffrent but good approach
+    const savedUser = await newUser.save();
+    genrateToken(savedUser._id,res);
 
     res.status(201).json({ 
         _id: newUser._id,
